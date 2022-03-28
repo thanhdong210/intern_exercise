@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="parking_ticket_form_view" model="ir.ui.view">
+            <field name="name">parking.ticket.form.view</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group name="images">
+                            <group>
+                                <field name="parking_lot_id"  readonly='True'/>
+                                <field name="parking_ticket_name"/>
+                                <field name="car_image" string="Car's Image" widget="image"/>
+                                <field name="car_type"/>
+                                <field name="check_in"/>
+                                <field name="code"/>
+                                <field name="check_out"/>
+                                <field name="total_time" readonly='True' force_save="1"/>
+                            </group>                          
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="parking_ticket_tree_view" model="ir.ui.view">
+            <field name="name">parking.ticket.tree.view</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <tree string="Parking ticket">
+                    <field name="parking_ticket_name"/>
+                    <field name="parking_lot_id"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_parking_ticket" model="ir.actions.act_window">
+            <field name="name">Parking ticket</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">parking.ticket</field>
+            <!-- <field name="view_type">form</field> --> <!-- Odoo 13 has removed this field -->
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('parking_ticket_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('parking_ticket_form_view')})]"/>
+        </record>
+
+        <menuitem id="menu_parking_ticket"
+            name="Parking ticket"
+            action="action_parking_ticket"
+            sequence="10"
+            groups="base.group_user"/>
+    </data>
+</odoo>
