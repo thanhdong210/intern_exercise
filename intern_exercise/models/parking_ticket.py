@@ -21,7 +21,9 @@ class ParkingTicket(models.Model):
 
     def create_ref_code():
         date = fields.Date(string='Date', default=datetime.today())
-        return ''.join(random.choices(str(date) + string.digits, k = 15))
+        random = ''.join(random.choices(string.digits, k = 7))
+        code = str(date) + str(random)
+        return code
 
     @api.depends("parking_ticket_name")
     def _generate_code(self):
