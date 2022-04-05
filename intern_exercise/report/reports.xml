@@ -1,0 +1,12 @@
+<odoo>
+  <record id="parking_lot_report" model="ir.actions.report">
+      <field name="name">Total car now</field>
+      <field name="model">parking.lot</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">intern_exercise.parking_lot_report</field>
+      <field name="report_file">intern_exercise.parking_lot_report</field>
+      <field name="print_report_name">parking.lot</field>
+      <field name="binding_model_id" ref="model_parking_lot"/>
+      <field name="binding_type">report</field>
+  </record>
+</odoo>

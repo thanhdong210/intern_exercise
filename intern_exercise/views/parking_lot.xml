@@ -7,6 +7,9 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="open_car_park" string="Open Parking Ticket" type="object" class="oe_link" icon="fa-folder-open"/>
+                        </div>
                         <group name="images">
                             <group>
                                 <field name="parking_lot_name"/>
@@ -14,17 +17,23 @@
                                 
                                 <field name="working_time_to" widget='float_time'/>
                                 <field name="total_car_now"/>
-                                <button name="open_car_park" type="object" class="oe_highlight" string="Open Tree View"/>
+                                <field name="pricelist_id"/>
                             </group>                          
                         </group>
+                        <notebook>
+                            <page name="general_information" string="General Information">
+                                <group>
+                                    <field name="parking_vehicle_id" domain="[('lot.id', 'in', [id])]"/>
+                                </group>
+                            </page>
+                            <page name="date_to_report" string="Choose date for report">
+                                <group>
+                                    <field name="from_date"/>
+                                    <field name="to_date"/>
+                                </group>
+                            </page>                            
+                        </notebook>
                     </sheet>
-                    <notebook>
-                        <page name="general_information" string="General Information">
-                            <group>
-                                <field name="parking_vehicle_id" domain="[('lot.id', 'in', [id])]"/>
-                            </group>
-                        </page>                            
-					</notebook>
                 </form>
             </field>
         </record>
@@ -42,20 +51,45 @@
             </field>
         </record>
 
+        <record id="parking_lot_kanban_view"
+            model="ir.ui.view">
+            <field name="model">parking.lot</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_employee_kanban" js_class="hr_employee_kanban" sample="1">
+                <templates>
+                    <t t-name="kanban-box">
+                    <div>
+                        <field name="parking_lot_name" />
+                        <field name="working_time_from" widget='float_time'/>
+                            
+                        <field name="working_time_to" widget='float_time'/>
+                        <button name="open_car_park_kanban" type="object" class="oe_highlight" string="Open Tree View"/>
+                    </div>
+                    </t>
+                </templates>
+                </kanban>
+            </field>
+        </record>       
+
         <record id="action_parking_lot" model="ir.actions.act_window">
             <field name="name">Parking lot</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">parking.lot</field>
             <!-- <field name="view_type">form</field> --> <!-- Odoo 13 has removed this field -->
             <field name="view_ids" eval="[(5, 0, 0),
+                
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('parking_lot_kanban_view')}),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('parking_lot_tree_view')}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('parking_lot_form_view')})]"/>
         </record>
-
+<!--         (0, 0, {'view_mode': 'tree', 'view_id': ref('parking_lot_tree_view')})
+ -->
         <menuitem id="menu_parking_lot"
             name="Parking lot"
             action="action_parking_lot"
             sequence="10"
             groups="base.group_user"/>
+
+        <menuitem name="Parking Vehiclefdfddf" id="menu_parking_vehicle" sequence="450" action="action_parking_lot" parent="menu_parking_lot"/>
     </data>
 </odoo>

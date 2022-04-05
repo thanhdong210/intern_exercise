@@ -7,16 +7,25 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_check_out" string="Check out" type="object" class="oe_link" icon="fa-check-square-o"/>
+                            
+                        </div>
                         <group name="images">
                             <group>
                                 <field name="parking_lot_id"  readonly='True'/>
                                 <field name="parking_ticket_name"/>
                                 <field name="car_image" string="Car's Image" widget="image"/>
-                                <field name="car_type"/>
+                                <field name="car_type_id"/>
                                 <field name="check_in"/>
                                 <field name="code"/>
-                                <field name="check_out"/>
+                                <field name="check_out" invisible="1"/>
                                 <field name="total_time" readonly='True' force_save="1"/>
+                                <field name="price" readonly="1"/>
+                                <!-- <field name="check_car_type" invisible='1'/>
+                                <field name="car_price_id" attrs="{'invisible':[('check_car_type','=',False)]}"/>
+                                <field name="car_price_id_price" invisible="1"/>
+                                <field name="car_type_id_relate" invisible="1"/> -->
                             </group>                          
                         </group>
                     </sheet>
