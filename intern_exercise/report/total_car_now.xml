@@ -8,7 +8,6 @@
                             <div t-field="o.parking_lot_name"/>
                             <span>Number of car now: </span>
                             <span t-field="o.total_car_now"/>
-                            <span t-field="lines.parking_ticket_name"/>
                         </h2>
                     </div>
                 </t>

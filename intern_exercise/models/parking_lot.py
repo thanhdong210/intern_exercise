@@ -12,6 +12,7 @@ class ParkingLot(models.Model):
     working_time_to = fields.Float("Working time to", required=True)
     parking_vehicle_id = fields.Many2many("lot.vehicle.relation")
     parking_vehicle_ids = fields.Many2many('parking.vehicle', relation='lot_vehicle', column1='parking_lot_id', column2='parking_vehicle_id', string="Lot Vehicle")
+    parking_vehicle_name_ralation = fields.Char(related="parking_vehicle_ids.parking_vehicle_name")
     total_car_now = fields.Integer("Total car", compute='_compute_total_car')
     from_date = fields.Datetime(required=False)
     to_date = fields.Datetime(required=False)
@@ -35,19 +36,25 @@ class ParkingLot(models.Model):
 
     def open_car_park_kanban(self, context=None):
         field_ids = self.env['parking.lot'].search([('id','=',self.id)])
-        domain = [('id', 'not in', [field_ids.id]), ('parking_lot_id.id', '=', self.id), ('price', '=', "")]
+        domain = [('id', 'not in', [field_ids.id]), ('parking_lot_id.id', '=', self.id)]
         #view_id_tree = self.env['ir.ui.view'].search([('name','=',"parking.ticket.tree")])
+        #tree_view_id = self.env.ref("intern_exercise.parking_ticket_tree_view_filtered").id
 
         return {
             'name': self.parking_lot_name + "'s ticket",
-            'context': {'default_parking_lot_id': self.id},
+            'context': {
+                'default_parking_lot_id': self.id, 
+                'search_default_state': 'staying_in', 
+            },
             'type': 'ir.actions.act_window',
             'res_model': 'parking.ticket',
             'view_type': 'form',
             'view_mode': 'tree,form',
             'target': 'current',
             'domain': domain,
+            
         }
+        #'views': [(tree_view_id, 'tree')],
 
     @api.depends("total_car_now")
     def _compute_total_car(self):

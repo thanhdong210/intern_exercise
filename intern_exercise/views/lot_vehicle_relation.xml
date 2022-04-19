@@ -49,10 +49,6 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('lot_vehicle_relation_form_view')})]"/>
         </record>
 
-        <menuitem id="menu_lot_vehicle_relation"
-            name="Lot vehicle relation"
-            action="action_lot_vehicle_relation"
-            sequence="10"
-            groups="base.group_user"/>
+        
     </data>
 </odoo>

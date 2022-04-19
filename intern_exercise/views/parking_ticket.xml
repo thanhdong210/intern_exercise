@@ -19,13 +19,10 @@
                                 <field name="car_type_id"/>
                                 <field name="check_in"/>
                                 <field name="code"/>
-                                <field name="check_out" invisible="1"/>
+                                <field name="check_out" readonly="1"/>
                                 <field name="total_time" readonly='True' force_save="1"/>
                                 <field name="price" readonly="1"/>
-                                <!-- <field name="check_car_type" invisible='1'/>
-                                <field name="car_price_id" attrs="{'invisible':[('check_car_type','=',False)]}"/>
-                                <field name="car_price_id_price" invisible="1"/>
-                                <field name="car_type_id_relate" invisible="1"/> -->
+                                <field name="state" readonly="1"/>
                             </group>                          
                         </group>
                     </sheet>
@@ -41,11 +38,25 @@
                     <field name="parking_ticket_name"/>
                     <field name="parking_lot_id"/>
                     <field name="total_time"/>
+                    <field name="car_type_id"/>
+                    <field name="price"/>
+                    <field name="check_out"/>
                 </tree>
             </field>
         </record>
 
-        <record id="action_parking_ticket" model="ir.actions.act_window">
+        <record id="parking_ticket_search" model="ir.ui.view">
+            <field name="name">parking.ticket.search</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <search string="Parking ticket">
+                    <separator/>
+                    <filter string="Car havent checked out" name="state" domain="[('state', '=', 'staying_in')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_parking_ticket2" model="ir.actions.act_window">
             <field name="name">Parking ticket</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">parking.ticket</field>
@@ -55,10 +66,6 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('parking_ticket_form_view')})]"/>
         </record>
 
-        <menuitem id="menu_parking_ticket"
-            name="Parking ticket"
-            action="action_parking_ticket"
-            sequence="10"
-            groups="base.group_user"/>
+        
     </data>
 </odoo>

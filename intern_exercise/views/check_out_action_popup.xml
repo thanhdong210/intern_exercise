@@ -9,8 +9,8 @@
                     <sheet>
                         <group name="images">
                             <group>
-                                <field name="total_time"/>
-                                <field name="price"/>
+                                <field name="total_time" readonly="1"/>
+                                <field name="price" readonly="1"/>
                             </group>                          
                         </group>
                     </sheet>
@@ -23,8 +23,8 @@
             <field name="model">checkout.action</field>
             <field name="arch" type="xml">
                 <tree string="Checkout action">
-                    <field name="total_time"/>
-                    <field name="price"/>
+                    <field name="total_time" readonly="1"/>
+                    <field name="price" readonly="1"/>
                 </tree>
             </field>
         </record>

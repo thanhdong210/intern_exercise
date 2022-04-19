@@ -6,4 +6,8 @@ access_parking_ticket,access_parking_ticket,model_parking_ticket,base.group_user
 access_parking_pricelist,access_parking_pricelist,model_parking_pricelist,base.group_user,1,1,1,1
 access_parking_pricelist_item,access_parking_pricelist_item,model_parking_pricelist_item,base.group_user,1,1,1,1
 access_checkout_action,access_checkout_action,model_checkout_action,base.group_user,1,1,1,1
-
+access_report_parking_lot_wizard,access_report_parking_lot_wizard,model_report_parking_lot_wizard,base.group_user,1,1,1,1
+access_ticket_report_wizard,access_ticket_report_wizard,model_ticket_report_wizard,base.group_user,1,1,1,1
+access_revenue_report_car_type,access_revenue_report_car_type,model_revenue_report_car_type,base.group_user,1,1,1,1
+access_revenue_report_lot,access_revenue_report_lot,model_revenue_report_lot,base.group_user,1,1,1,1
+access_report_revenue,access_report_revenue,model_report_revenue,base.group_user,1,1,1,1

@@ -45,10 +45,6 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('parking_pricelist_item_form_view')})]"/>
         </record>
 
-        <menuitem id="menu_parking_pricelist_item"
-            name="Parking pricelist item"
-            action="action_parking_pricelist_item"
-            sequence="10"
-            groups="base.group_user"/>
+        
     </data>
 </odoo>

@@ -12,14 +12,19 @@ class ParkingTicket(models.Model):
 
     parking_ticket_name = fields.Char('Car name', required=True)
     parking_lot_id = fields.Many2one('parking.lot', required=True)
+    parking_lot_id_relate = fields.Integer(related='parking_lot_id.id')
     car_image = fields.Binary("Car Image", attachment=True, help="Car Image")
     car_type_id = fields.Many2one("lot.vehicle.relation", required=True, domain="[('lot.id', 'in', [parking_lot_id])]")
     car_type_id_relate = fields.Integer(related='car_type_id.vehicle.id')
     check_in = fields.Datetime("Check in", required=True)
-    check_out = fields.Datetime("Checkout", default=lambda self: fields.datetime.now())
+    check_out = fields.Datetime("Checkout")
     total_time = fields.Char("Total time")
     code = fields.Char("Code", readonly=True)
     price = fields.Float("Price")
+    state = fields.Selection([
+        ('checked_out', "Checked out"),
+        ('staying_in', "Staying in")
+    ], default='staying_in')
     """ car_price_id = fields.Many2one("parking.pricelist", domain="[('car_type.id', '=', car_type_id_relate)]")
     car_price_id_price = fields.Float(related='car_price_id.price')
     check_car_type = fields.Boolean()
@@ -31,7 +36,8 @@ class ParkingTicket(models.Model):
 
     def action_check_out(self):  
         #hour   
-        print(self.check_out) 
+        print(self.car_type_id_relate)
+        self.check_out = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         d1 = datetime.strptime(str(self.check_in),'%Y-%m-%d %H:%M:%S') 
         d2 = datetime.strptime(str(self.check_out),'%Y-%m-%d %H:%M:%S')       
         d3 = d2 - d1
@@ -48,7 +54,7 @@ class ParkingTicket(models.Model):
             for row in line:
                 if float(record.total_time) >= row.from_hour and float(record.total_time) <= row.to_hour:                    
                     price1 = row.price
-                self.write(vals={'total_time': delta2, 'price': price1})
+                self.write(vals={'total_time': delta2, 'price': price1, 'state': 'checked_out'})
 
         return {
             'name': "Checkout",
