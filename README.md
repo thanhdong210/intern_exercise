@@ -3,14 +3,14 @@
 1.a 
 	- Đã hoàn thành trừ phần working time chưa dựa theo module resource.calendar
 1.b
-	- Đã hoàn thành trừ phần mã xe chưa hoàn chỉnh
+	- Đã hoàn thành 
 1.c
 	- Đã hoàn thành
 1.d
-	- Chưa hòa thành
+	- Đã hoàn thành
 2.
-	- Chưa hoàn thành
+	- Đã hoàn thành
 3. 
-	- Chưa hoàn thành
+	- Đã hoàn thành
 4. 
-	- Chưa hoàn thành
+	- Đã hoàn thành
